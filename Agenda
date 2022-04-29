@@ -1,0 +1,478 @@
+//JFrameIngresos2022
+paquete  origen ;
+
+importar  javax . columpio .*;
+importar  Java . awt .*;
+
+ clase  pública JFrameIngreso2022  extiende  JFrame
+{
+   PanelIngreso2022  mostrar = new  PanelIngreso2022 ();
+   
+    público  JFrameIngreso2022 ()
+   {
+     componentes de inicio ();
+   }
+   
+    initComponents vacío  privado ()
+   {
+      esto _ setEnabled ( verdadero );
+      establecerTamaño ( 350 , 200 );
+      setTitle ( "Usuario y Contraseña" );
+      setDefaultCloseOperation ( JFrame . EXIT_ON_CLOSE );
+      setRedimensionable ( falso );
+      setContentPane ( mostrar );
+      setVisible ( verdadero );
+       
+   }   
+}
+//JFrameMostrar
+paquete  origen ;
+
+importar  javax . columpio .*;
+importar  Java . awt .*;
+
+ clase  pública JFrameMostrar  extiende  JFrame
+{
+   PanelDatos2022  mostrar = new  PanelDatos2022 ();
+   
+    público  JFrameMostrar ()
+   {  
+      //super.setVisible(falso);
+     //super.dispose();
+      componentes de inicio ();
+   }
+   
+    initComponents vacío  privado ()
+   {
+      //super.setVisible(falso);
+      //super.dispose();
+      establecerTamaño ( 300 , 200 );
+      setTitle ( "AGENDA" );
+      setDefaultCloseOperation ( JFrame . EXIT_ON_CLOSE );
+      setRedimensionable ( falso );
+      setContentPane ( mostrar );
+      setVisible ( verdadero );
+       
+   }   
+}
+//JFrameTablaDatos
+paquete  origen ;
+
+importar  javax . columpio .*;
+importar  Java . awt .*;
+
+ clase  pública JFrameTablaDatos  extiende  JFrame {
+
+    TablaDatos  md = new  TablaDatos ();
+
+    public  JFrameTablaDatos () {
+        componentes de inicio ();
+    }
+
+     componentes de inicio de vacío  privado () {
+        establecerTamaño ( 800 , 300 );
+        setTitle ( "Contactos Registrados" );
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setRedimensionable ( falso );
+        setContentPane ( md );
+        setVisible ( verdadero );
+    } 
+}
+//MPersona
+importar  Java . utilidad .*;
+
+ clase  pública MPersona {
+
+    static  ArrayList < Persona > Arrpersona = new  ArrayList < Persona >();
+     Persona  privada objPersona ;
+
+     MPersona pública () {
+    }
+
+    public  void  agregar ( String  nom , String  ap , String  tel , String  correo , String  fechac , String  tipo ) {
+        objPersona = nueva  Persona ();
+        objPersona . setNombre ( nombre );
+        objPersona . setApellidos ( ap );
+        objPersona . setTeléfono ( tel );
+        objPersona . setCorreoe ( correo );
+        objPersona . setfechac ( fechac );
+        objPersona . setTipo ( tipo );
+        Arrpersona . agregar ( objPersona ); //Agrega el objeto al arrayList
+
+    }
+
+    public  ArrayList  Datos () {
+        volver  Arrpersona ;
+    }
+}
+//PanelDatos2022
+importar  javax . columpio .*;
+importar  Java . awt .*;
+importar  Java . awt _ evento .*;
+importar  Java . útil _ iterador ;
+
+ clase  pública PanelDatos2022  extiende  JPanel  implementa  ActionListener {
+
+     JButton privado btnGuardar  , btnCancelar , btnEliminar , btnModificar , btnBuscar ;
+    private  JTextField  txtNombre , txtApellidos , txtTelefono , txtCorreoe , txtFechac ;
+    privado  JRadioButton  tec , trabajo ;
+    MPersona  mpa = nueva  MPersona ();
+    TablaDatos  dts = new  TablaDatos ();
+
+    public  PanelDatos2022 () {
+        setLayout ( nuevo  GridLayout ( 10 , 3 ));
+        JLabel  lblNombre = new  JLabel ( "Nombre: " , JLabel . DERECHA );
+        txtNombre = new  JTextField ( 30 );
+        add ( lblNombre );
+        add ( txtNombre );
+
+        JLabel  lblApellidos = new  JLabel ( "Apellidos: " , JLabel.DERECHA ) ;
+        txtApellidos = new  JTextField ( 30 );
+        add ( lblApellidos );
+        add ( txtApellidos );
+
+        JLabel  lblTelefono = new  JLabel ( "Numero de Celular: " , JLabel . RIGHT );
+        txtTelefono = new  JTextField ( 15 );
+        add(lblTelefono);
+        add(txtTelefono);
+
+        JLabel lblCorreoe = new JLabel("Correo electronico: ", JLabel.RIGHT);
+        txtCorreoe = new JTextField(30);
+        add(lblCorreoe);
+        add(txtCorreoe);
+
+        JLabel lblFechac = new JLabel("Fecha de cumpleaños: ", JLabel.RIGHT);
+        txtFechac = new JTextField(30);
+        add(lblFechac);
+        add(txtFechac);
+        
+        
+        JLabel lblTipo = new JLabel("ELIGE EL TIPO: ", JLabel.CENTER);
+        JLabel lblTipo2 = new JLabel("", JLabel.CENTER);
+        add(lblTipo);
+        add(lblTipo2);
+
+        ButtonGroup gpoBotones = new ButtonGroup();
+        tec = new JRadioButton("TecNM/CdGuzman", true);
+        trabajo = new JRadioButton("Trabajo");
+        gpoBotones.add(tec);
+        gpoBotones.add(trabajo);
+
+        add(tec);
+        add(trabajo);
+
+        btnGuardar = new JButton("Guardar");
+        btnGuardar.addActionListener(this);
+        btnCancelar = new JButton("Mostrar");
+        btnCancelar.addActionListener(this);
+
+       // btnBuscar = new JButton("Buscar");
+    //    btnBuscar.addActionListener(this);
+        add(btnGuardar);
+        add(btnCancelar);
+      //  add(btnBuscar);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String tipo = "TecNM";
+        if (trabajo.isSelected()) {
+            tipo = "Trabajo";
+        }
+        if (e.getSource() == btnGuardar) {
+            if (txtNombre.getText() == null || txtNombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debes colocar al menos el nombre",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                txtNombre.requestFocus();
+            } else if (txtTelefono.getText() == null || txtTelefono.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debes capturar su telefono",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                txtTelefono.requestFocus();
+            } else {
+                mpa.agregar(txtNombre.getText(), txtApellidos.getText(), txtTelefono.getText(),
+                        txtCorreoe.getText(),txtFechac.getText(), tipo);
+                JOptionPane.showMessageDialog(null, "Se guardaran los datos",
+                        "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                txtNombre.setText(null);
+                txtApellidos.setText(null);
+                txtTelefono.setText(null);
+                txtCorreoe.setText(null);
+                txtFechac.setText(null);
+                txtNombre.requestFocus();
+            }
+
+        }
+        if (e.getSource() == btnCancelar) {
+            //System.exit(0);
+            JFrameTablaDatos jft = new JFrameTablaDatos();
+        }
+
+        if (e.getSource() == btnBuscar) {
+            if (txtNombre.getText() == null || txtNombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debes colocar el nombre a buscar",
+                        "Aviso" , JOptionPane . INFORMACIÓN_MENSAJE );
+                txtNombre . solicitud de enfoque ();
+            } más {
+
+            }
+        }
+
+    }
+}
+//PanelIngreso2022
+importar  javax . columpio .*;
+importar  Java . awt .*;
+importar  Java . awt _ evento .*;
+
+ clase  pública PanelIngreso2022  extiende  JPanel  implementa  ActionListener
+{
+   JButton privado btnIngresar  , btnSalir ;
+  privado  JTextField  txtUser ;
+  privado  JPasswordField  passContra ;
+  
+  público  PanelIngreso2022 ()
+  {
+     setLayout ( nuevo  GridLayout ( 3 , 2 ));
+     JLabel  lblUsuario = new  JLabel ( "Usuario: " , JLabel . DERECHA );
+     txtUser = nuevo  JTextField ( 12 );
+     add ( lblUsuario );
+     agregar ( txtUser );
+     
+     JLabel  lblcontra = new  JLabel ( "Contraseña: " , JLabel . DERECHA );
+     passContra = nuevo  JPasswordField ( 15 );
+     pasarContra . setToolTipText ( "Ingrese Contraseña" );
+     agregar ( lblcontra );
+     agregar ( pasarContra );
+     
+     btnIngresar = new  JButton ( "Ingresar" );
+    btnIngresar . addActionListener ( esto );
+    btnSalir = new  JButton ( "Salir" );
+    btnSalir . addActionListener ( esto );
+    
+    agregar ( btnIngresar );
+    agregar ( btnSalir );
+  }
+  
+  public  void  actionPerformed ( ActionEvent  e ){
+   String usuario = txtUser.getText();
+   String contra = new String(passContra.getPassword());
+   
+   if(e.getSource()== btnIngresar){
+     if(usuario.isEmpty() && contra.isEmpty())
+     {
+       JOptionPane.showMessageDialog(null, "Ingrese usuario y contraseña");
+       txtUser.requestFocus();
+     }
+     else
+     {
+      if(usuario.equals("David") && contra.equals("1234"))
+      { 
+        JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+        JFrameMostrar datos = new JFrameMostrar();
+      }
+     else
+     {
+      JOptionPane.showMessageDialog(null, "Usuario o contrasena equivocada");
+      txtUser.setText(null);
+      pasarContra . establecerTexto ( nulo );
+      txtUsuario . solicitud de enfoque ();
+     } //otro usuario
+    } // más vacío
+   } //si boton Ingresar
+   
+   if ( p . ej . getSource () == btnSalir )
+   {
+     sistema _ salir ( 0 );
+   }
+  } //método Acción Realizada
+}
+//Persona
+paquete origen
+Persona de clase  pública {
+     Cadena  privada Nombre ;
+     cadena  privada Apellidos ;
+     Teléfono de cuerda  privado ;
+     cadena  privada correoe ;
+     Tipo de cadena  privada ;
+     Cadena  privada Fechac ;
+    
+    public  String  getNombre (){
+     volver  Nombre ;
+    }
+    
+    public  void  setNombre ( String  nombre ){
+        esto _ Nombre = nombre ;
+    }
+     cadena  pública getApellidos (){
+     volver  Apellidos ;
+    }
+    
+    public  void  setApellidos ( String  apellidos ){
+        esto _ Apellidos = apellidos ;
+    }
+    
+    public  String  getTelefono (){
+     volver  Teléfono ;
+    }
+    
+    public  void  setTelefono ( String  telefono ){
+        esto _ Telefono = telefono ;
+    }
+   
+     Cadena  pública getFechac (){
+        volver  Fechac ;
+    }
+    
+    public  void  setfechac ( String  fechac ){
+        esto _ Fechac = fechac ;
+    }
+    Cadena  pública getTipo (){
+     volver  Tipo ;
+    }
+    
+    public  void  setTipo ( String  tipo ){
+        esto _ tipo = tipo ;
+    }
+    
+      Cadena  pública getCorreoe (){
+     volver  correo ;
+    }
+    
+    public  void  setCorreoe ( String  correoe ){
+        esto _ correoe = correoe ;
+    }
+}
+//Pricipal
+paquete origen;
+
+ director de clase  pública
+{
+   public  static  void  principal ( String [] args )
+   {
+     JFrameIngreso2022  elist = new  JFrameIngreso2022 ();
+   }
+}
+//TablaDatos
+importar  javax . columpio .*;
+importar  Java . awt .*;
+importar  Java . awt _ evento _ Evento de acción ;
+importar  Java . awt _ evento _ ActionListener ;
+importar  Java . utilidad .*;
+importar  javax . columpio _ mesa _ Modelo de tabla por defecto ;
+importar  src estático  . MPersona . arpersona ;
+
+public  class  TablaDatos  extiende  JPanel  implementa  ActionListener {
+
+    JTable  tabla ;
+     Desplazamiento de JScrollPane = nuevo JScrollPane (); 
+    JButton  salir , btnEliminar , btnModificar ;
+    JTextField  txtFila , txtColumna , txtnuevodato ;
+
+    MPersona  mp = nueva  MPersona ();
+    ArrayList < Persona > datosPer = new  ArrayList < Persona >();
+
+    public  TablaDatos (){
+        datosPer = mp . datos ();
+        String  titulos [] = { "Nombre" , "Apellidos" , "Telefono" , "Correo Electronico" , "Fecha de cumpleaños" , "Tipo de Contacto" };
+        String  info [][] = obtenerDatos ();
+        setLayout ( nuevo  GridLayout ( 3 , 2 ));
+        tabla = new  JTable ( info , titulos );
+        tabla _ setAutoResizeMode ( JTable . AUTO_RESIZE_OFF );
+        desplazarse _ setViewportView ( tabla );
+        agregar ( desplazarse );
+        JLabel  lblTipo2 = new  JLabel ( "" , JLabel . CENTRO );
+        agregar ( lblTipo2 );
+        JLabel  lblFila = new  JLabel ( "Nuevo dato: " , JLabel . CENTRO );
+        txtFila = nuevo  JTextField ( 15 );
+        agregar ( lblFila );
+        agregar ( txtFila );
+        btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(this);
+        btnModificar = new JButton("Modificar");
+        btnModificar.addActionListener(this);
+        add(btnEliminar);
+        add(btnModificar);
+    }
+
+    private String[][] obtenerDatos() {
+        int x = 0;
+        String informacion[][] = new String[datosPer.size()][6];
+        Iterator<Persona> itrPersona = datosPer.iterator();
+        while (itrPersona.hasNext()) {
+            Persona persona = itrPersona.next();
+            informacion[x][0] = persona.getNombre();
+            informacion[x][1] = persona.getApellidos();
+            informacion[x][2] = persona.getTelefono();
+            informacion[x][3] = persona.getCorreoe();
+            informacion[x][4] = persona.getFechac();
+            informacion[x][5] = persona.getTipo();
+            x++;
+            
+            
+        }
+        return informacion;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnEliminar) {
+            
+            int fila = tabla.getSelectedRow();
+            
+            if (fila >= 0) {
+                
+                int rpta = JOptionPane.showConfirmDialog(this, "Deseas eliminar la fila", "Sistema", JOptionPane.INFORMATION_MESSAGE);
+                if (rpta == JOptionPane.YES_OPTION) {
+                    Arrpersona.remove(fila);
+                    JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                    
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione fila");
+            }
+        }
+        if (e.getSource() == btnModificar) {
+            try {
+                int fila = tabla.getSelectedRow();
+                int columna = tabla.getSelectedColumn();
+                Persona persona = new Persona();
+                persona = Arrpersona.get(fila);
+                //DefaultTableModel modelo = new DefaultTableModel();
+                switch (columna) {
+                    case 0:
+                        String nuevoNombre = txtFila.getText();
+                        persona.setNombre(nuevoNombre);
+                        JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                        break;
+                    case 1:
+                        String nuevoApellido = txtFila.getText();
+                        persona.setApellidos(nuevoApellido);
+                        JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                        break;
+                    case 2:
+                        String nuevoTelefono = txtFila.getText();
+                        persona.setNombre(nuevoTelefono);
+                        JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                        break;
+                    case 3:
+                        String nuevoCorreo = txtFila.getText();
+                        persona.setCorreoe(nuevoCorreo);
+                        JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                        break;
+                    case 4:
+                        String nuevofechaC = txtFila.getText();
+                        persona.setfechac(nuevofechaC);
+                        JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                        break;
+                    case 5:
+                        String nuevotipo = txtFila.getText();
+                        persona.setTipo(nuevotipo);
+                        JOptionPane.showMessageDialog(this, "Actualice la ventana");
+                        break;
+                }
+                Arrpersona . conjunto ( fila , persona );
+            } catch ( excepción  ex ) {
+                JOptionPane . showMessageDialog ( null , "Seleccione la columna y la fila que desea modificar, y agregue el nuevo dato" );
+            }
+        }
+    }
+}
